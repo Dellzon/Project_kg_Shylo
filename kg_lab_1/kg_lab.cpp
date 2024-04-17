@@ -6,7 +6,7 @@ namespace main
 	bool boActive = false;
 	HWND hWnd = 0;
 	const TCHAR* szClass = "KG Lab Class";
-	const TCHAR* szTitle = "Комп'ютерна графіка. Лабораторна робота.";
+	const TCHAR* szTitle = "Комп'ютерна графіка. Лабораторна робота."; //
 	void message_box_(const TCHAR* mes)
 	{
 		::MessageBox(0, mes, 0, MB_OK | MB_ICONERROR | MB_TASKMODAL);
