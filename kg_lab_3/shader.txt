@@ -1,0 +1,27 @@
+//параметри камери
+float4x4 m_view_proj;
+float4x4 m_iview;
+//джерело світла
+float4 v_lig_dir;
+float4 v_lig_pos;
+float4 v_lig_color, v_amb_color;
+//параметри об'єкта
+float4x4 m_world;
+float4 v_obj_color;
+float f_power, f_spec_level;
+
+technique wire
+{
+	pass P0
+	{
+
+			FillMode = Wireframe;
+			FogEnable = false;
+			AlphaBlendEnable = false;
+			AlphaTestEnable = false;
+			ZEnable = true;
+			ZFunc = LessEqual;
+			CullMode = CCW;
+
+	}
+}
