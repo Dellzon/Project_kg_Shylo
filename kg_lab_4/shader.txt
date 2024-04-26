@@ -1,0 +1,58 @@
+//параметри камери
+float4x4 m_view_proj;
+float4x4 m_iview;
+//джерело світла
+float4 v_lig_dir;
+float4 v_lig_pos;
+float4 v_lig_color, v_amb_color;
+//параметри об'єкта
+float4x4 m_world;
+float4 v_obj_color;
+float f_power, f_spec_level;
+
+struct s_vertex2
+{
+	float4 pos: POSITION;
+	float3 nor: NORMAL;
+};
+
+struct s_output2
+{
+	float4 pos: POSITION;
+	float3 nor: TEXCOORD0;
+	float3 eye: TEXCOORD1;
+	float3 wpos: TEXCOORD2;
+};
+
+s_output2 vs_simple(s_vertex2 i)
+{
+	s_output2 o;
+	float4 P = mul(i.pos, m_world);
+	o.wpos = P.xyz;
+	o.pos = mul(P, m_view_proj);
+	o.nor = mul(i.nor, (float3x3)m_world);
+	o.eye = mul(float3( 0.f, 0.f, 1.f ), (float3x3)m_iview);
+	return o;
+}
+
+float4 ps_wire(s_output2 i): COLOR
+{
+	return float4(v_obj_color.rgb, 1.0);
+}
+
+technique wire
+{
+	pass P0
+	{
+
+			FillMode = Wireframe;
+			FogEnable = false;
+			AlphaBlendEnable = false;
+			AlphaTestEnable = false;
+			ZEnable = true;
+			ZFunc = LessEqual;
+			CullMode = CCW;
+			VertexShader = compile vs_2_0 vs_simple();
+			PixelShader = compile ps_2_0 ps_wire();
+	}
+}
