@@ -53,6 +53,8 @@ namespace scene
 		pEffect->SetVector(hLigDir, &vLigDir);
 		pEffect->SetVector(hLigPos, &vLigPos);
 		const s_figure* f = pSceneRoot;
+		pEffect->SetFloat(hPower, f->power());
+		pEffect->SetFloat(hSpecLevel, f->spec_level());
 		DWORD vcnt = 0, icnt = 0;
 		const s_vertex* v = f->verts(vcnt);
 		const t_index* i = f->inds(icnt);
@@ -114,7 +116,8 @@ namespace scene
 		vLigPos = s_vector4(0.f, 0.f, 20.f, 35.f);
 		pSceneRoot = new figures::s_cube(
 			s_vector3(1.f, 0.f, 25.f), s_vector3(45.f, 0.f, 0.f), s_vector3(2.f, 2.f, 2.f), 0xFF030FF30UL);
-
+		pSceneRoot = new figures::s_cube(s_vector3(2.f, 0.f, 8.f), s_vector3(30.f, 30.f, 0.f),
+			s_vector3(1.f, 1.f, 1.f), 0xFF00FF00UL, 0.5f, 120.f );
 	}
 
 	void UpdateSceneMatrices(LPD3DXEFFECT pEffect)
